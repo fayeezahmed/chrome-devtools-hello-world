@@ -1,0 +1,41 @@
+{
+  // information about extension
+  "manifest_version": 2,
+  "name": "Fayeez Chrome extension 😎",
+  "version": "1.0.0",
+  "description": "Fayeez Chrome extension 😎",
+  // icons
+  // "icons": {
+  //   "16": "img_16.png",
+  //   "32": "img_32.png",
+  //   "64": "img_64.png"
+  // },
+  // background script
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  // content script
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  // options page
+  "options_page": "options.html",
+  // ui elements
+  "browser_action": {
+    "default_title": "My Chrome extension 😎",
+    "default_popup": "popup.html",
+     "default_icon": {
+    //   "16": "img_16.png",
+    //   "32": "img_32.png",
+    //   "64": "img_64.png"
+     }
+  },
+  "devtools_page": "devtools.html",
+  "permissions": [ "activeTab" ]
+}
