@@ -1,4 +1,5 @@
 13/11/2020
+* NOTE: Load extension. Load web page. Open devtools. Refresh page.
 * NEXT: Fix reloading of app
 * NEXT: Clean up repository
 * NEXT: Add docs for detailing out how this is working
