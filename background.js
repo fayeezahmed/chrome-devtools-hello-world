@@ -1,4 +1,4 @@
-// Background script is the interface between the other extension components:
+// Background script is the interface between the content script and other extension components:
 //       **************************************
 //       *    _______          __________     *  
 //       *   | Popup |        | Devtools |    *     
@@ -22,42 +22,25 @@
 var ports = {};
 
 chrome.runtime.onConnect.addListener(function (port) {
-  // if(port.name !== 'content-script') return;
-
-  // ports.push(port);
+  // Add reference to the ports when they connect so that we can call them later
   ports[port.name] = port;
+
   // Remove port when destroyed (eg when devtools instance is closed)
-    port.onDisconnect.addListener(function() {
-        var i = ports.indexOf(port);
-        if (i !== -1) ports.splice(i, 1);
-    });
+  port.onDisconnect.addListener(function() {
+      ports[port.name] = null
+  });
 
   port.onMessage.addListener(function(msg) {
+    // One way comms from content-script to devtools for now.
+    // This can be generalised to work from/to any port when needed.
+    // No need to add unecessary complexity right now.
     if(
       port.name === 'content-script' &&
       ports.devtools
     ) {
+      console.log(`Received from ${port.name} and sending to ${ports.devtools.name}`)
       ports.devtools.postMessage(msg)
-      console.log(ports.devtools, '<1') 
-      console.log(ports['devtools'], '<2') 
-      // ports.devtools.postMessage('Communicating between content script and dev tools')
     }
-    console.log(`Received from ${port.name}`, msg)
   })
 })
 
-
-// UI elements are declared in manifest, but you can also programmatically enable them here. 
-// React Devtools does this:
-// const iconPath = getIconBasedOnReactVersion();
-// chrome.browserAction.setIcon({ tabId, path: iconPath });
-// 
-// function getIconBasedOnReactVersion() {
-//   if (noReactDetected) {
-//     return 'disabled-react-icon.png';
-//   }
-//   if (isReactDevelopment) {
-//     return 'development-react-icon.png';
-//   }
-//   return 'production-react-icon.png';
-// }

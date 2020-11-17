@@ -11,7 +11,6 @@ chrome.devtools.panels.create(
     port.onMessage.addListener(function (msg) {
       // push msg on a queue if the panels is not open. Otherwise just run it.
       if(_window) {
-        console.log('windowing')
         _window.doSomething(msg)
       } else {
         data.push(msg);
