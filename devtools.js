@@ -8,7 +8,7 @@ chrome.devtools.panels.create(
     var _window; // panel html's window object
     var data=[];
     var port = chrome.runtime.connect({ name: 'devtools' });
-    port.onMessage.addListener((msg) => {
+    port.onMessage.addListener(function (msg) {
       // push msg on a queue if the panels is not open. Otherwise just run it.
       if(_window) {
         console.log('windowing')
@@ -30,6 +30,7 @@ chrome.devtools.panels.create(
 
       // attach function 'respond' to the panel window context, so we can call it in panel.js
       _window.respond = function(msg) {
+        console.log(port)
         port.postMessage(msg)
       }
     })

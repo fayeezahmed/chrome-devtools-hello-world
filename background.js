@@ -27,13 +27,16 @@ chrome.runtime.onConnect.addListener(function (port) {
   // ports.push(port);
   ports[port.name] = port;
   // Remove port when destroyed (eg when devtools instance is closed)
-    // port.onDisconnect.addListener(function() {
-    //     var i = ports.indexOf(port);
-    //     if (i !== -1) ports.splice(i, 1);
-    // });
+    port.onDisconnect.addListener(function() {
+        var i = ports.indexOf(port);
+        if (i !== -1) ports.splice(i, 1);
+    });
 
   port.onMessage.addListener(function(msg) {
-    if(port.name === 'content-script') {
+    if(
+      port.name === 'content-script' &&
+      ports.devtools
+    ) {
       ports.devtools.postMessage(msg)
       console.log(ports.devtools, '<1') 
       console.log(ports['devtools'], '<2') 

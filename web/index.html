@@ -7,8 +7,7 @@
       // If so, subsribe to event.
       window.mySingleton = { id: 'singleton', label:'something', data:{a:'some', b:'data', c:'to', d:'handle'} }    
       window.addEventListener('load', () => {
-        console.log('sendinggg:')
-        window.postMessage({data:window.mySingleton, source: 'my-chrome-extension-web-page'});
+        __MY_EXTENSION_HOOK__.sendMessage({data:window.mySingleton, source: 'my-chrome-extension-web-page'});
       });
 
   </script>

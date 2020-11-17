@@ -25,9 +25,10 @@ function installHook() {
       listeners.get(eventName).push(listener);
     },
     sendMessage(data) {
+      console.log('data', data)
       window.postMessage({
         source: 'my-chrome-extension-web-page',
-        data,
+        ...data,
       });
     },
   };
