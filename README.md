@@ -57,3 +57,9 @@ access to the window of panel html and so can attach anything to that session. F
 to attach onto the window object that will post a message out from devtools. We can capture this inside `background.js`
 and then send this back to the content script. This can then be transmitted to the web page if that's the intention.
 
+## Consoles
+It's important to note that when you load up the devtools panel, you can load its devtools panel. This is useful for
+debugging purposes, since anything you log inside `devtools.js` or `panel.js` will log there - I haven't tried with the
+Pop up, but I imagine it is similar. 
+
+To access the `background.js` console, you can do so inside the details section when you load/unload the extension.
