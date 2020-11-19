@@ -43,11 +43,17 @@ all the DOM and any events the webpage might throw out.
 There are various strategies that the chrome devtools extension docs explain to [communicate between
 extension components](https://developer.chrome.com/extensions/devtools#solutions).
 
-However, the one this extension uses is to have the `Background.js` be the communications bridge. [See long lived connections](https://developer.chrome.com/extensions/messaging#connect).
+However, the one this extension uses is to have the `background.js` be the communications bridge. [See long lived connections](https://developer.chrome.com/extensions/messaging#connect).
 
 The background script can therefore send and receive messages between all the various components. In this extension,
 I haven't yet got bi-directional communication (from the devtools to the content script), but it isn't something
 that will take too much effort to add.
 
+#### Devtools
 
+This is responsible for the actual dev tools section where you can create your custom panels. In this example, 
+I add event listeners on the callback that gets run when the panel is created. Inside this callback, you have
+access to the window of panel html and so can attach anything to that session. For example, I can add a function
+to attach onto the window object that will post a message out from devtools. We can capture this inside `background.js`
+and then send this back to the content script. This can then be transmitted to the web page if that's the intention.
 

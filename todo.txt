@@ -1,4 +1,7 @@
 * NOTE: Load extension. Load web page. Open devtools. Refresh page.
+19/11/2020
+* DONE: Add docs for detailing how it works
+* NEXT: PoC for catalog with Focus Manager
 
 17/11/2020
 * DONE: Clean up repository
