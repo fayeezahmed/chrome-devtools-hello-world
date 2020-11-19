@@ -1,4 +1,5 @@
 // content script
+console.log('content script')
 const contentPort = chrome.runtime.connect({
   name: 'content-script'
 });
